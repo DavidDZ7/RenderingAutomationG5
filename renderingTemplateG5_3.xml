@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--RENDERING TEMPLATE FOR G5 PROJECT-->
+<scene version="0.5.0">
+	<integrator id="integrator" type="bdpt">
+		<integer name="rrDepth" value="20"/>
+	</integrator>
+		
+	
+	<medium id="myMediumAssembly" type="homogeneous">
+		<!-- Object properties for the assembly   -->
+		<spectrum name="sigmaT" value="/> <!--VARY SigmaT______________________________________________________________________________-->
+		<spectrum name="albedo" value="/> <!--VARY Albedo______________________________________________________________________________-->
+		<phase type="isotropic"/>
+	</medium>
+
+
+	<shape type="sphere">
+		<transform name="toWorld">
+			<matrix value="0.614046 0.614047 0 -1.78814e-07 -0.614047 0.614046 0 2.08616e-07 0 0 0.868393 1.02569 0 0 0 1"/>
+			<rotate x="0.5" y="0.5" angle="130"/>
+			<translate x="-0.3" y="0.3" z="1.58"/> <!-- was 0.01. and 0.38 for torus -->
+		</transform>
+	
+		
+		<bsdf type="roughdielectric">
+			<float name="intIOR" value="/><!-- VARY internal IOR________________________________________________________________________-->
+			<float name="extIOR" value="1.0"/>
+			<float name="alpha" value="/> <!-- VARY roughness alpha________________________________________________________________________-->
+		</bsdf>
+	    
+		<ref name="interior" id="myMediumAssembly"/>
+	</shape>
+	
+	<sensor type="perspective" id="Camera-camera">
+		<string name="fovAxis" value="smaller"/>
+		<float name="focusDistance" value="6.0"/>
+		<float name="fov" value="28.8415"/>
+		<transform name="toWorld">
+			<lookAt target="3.04072, -2.85176, 2.80939" origin="3.69558, -3.46243, 3.25463" up="-0.317366, 0.312466, 0.895346"/>
+		</transform>
+
+		<sampler type="ldsampler">
+			<integer name="sampleCount" value="/><!-- VARY Samples________________________________________________________________________-->
+		</sampler>
+
+		<film type="ldrfilm" id="film">
+			<integer name="width" value="/><!-- VARY Image width________________________________________________________________________-->
+			<integer name="height" value="/><!-- VARY Image height________________________________________________________________________-->
+			<string name="pixelFormat" value="rgb"/>
+			<string name="fileFormat" value="png"/>
+			<boolean name="banner" value="false"/>
+
+			<rfilter type="gaussian"/>
+		</film>
+	</sensor>
+
+	<emitter type="envmap" id="Area_002-light">
+		<string name="filename" value="envmap.exr"/>
+		<transform name="toWorld">
+			<rotate y="1" angle="-180"/>
+			<matrix value="-0.224951 -0.000001 -0.974370 0.000000 -0.974370 0.000000 0.224951 0.000000 0.000000 1.000000 -0.000001 8.870000 0.000000 0.000000 0.000000 1.000000 "/>
+		</transform>
+
+	</emitter>
+
+</scene>
